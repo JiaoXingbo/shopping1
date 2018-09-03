@@ -1,0 +1,45 @@
+package com.neuedu.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neuedu.mapper.OrderdetailMapper;
+import com.neuedu.mapper.OrdertableMapper;
+import com.neuedu.po.Orderdetail;
+import com.neuedu.service.OrderService;
+import com.neuedu.vo.OrderdetailVO;
+
+@Service
+public class OrderServiceImpl implements OrderService {
+
+	@Autowired
+	private OrderdetailMapper orderdetailMapper;
+	@Autowired
+	private OrdertableMapper ordertableMapper;
+	@Override
+	public List<OrderdetailVO> getDetails(Integer orderid) {
+		
+		return orderdetailMapper.selectByOrderid(orderid);
+	}
+
+	@Override
+	public int selectOrderidByOrdernum(String ordernum) {
+		int orderid = ordertableMapper.selectOrderidByOrdernum(ordernum);
+		
+		return orderid;
+	}
+
+	@Override
+	public void insertSelective(Orderdetail orderdetail) {
+		 orderdetailMapper.insertSelective(orderdetail);
+	}
+
+	@Override
+	public void updateOrderstatusByOrderid(Integer orderid) {
+		ordertableMapper.updateOrderstatusByOrderid(orderid);
+		
+	}
+
+}

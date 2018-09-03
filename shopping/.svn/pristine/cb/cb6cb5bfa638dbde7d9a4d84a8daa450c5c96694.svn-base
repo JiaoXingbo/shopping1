@@ -1,0 +1,12 @@
+package com.neuedu.service;
+
+import java.util.List;
+
+import com.neuedu.po.Address;
+
+public interface PayService {
+	public List<Address> getList(Integer userid);
+	
+	public void delete(Integer addressid);
+	
+}

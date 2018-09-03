@@ -1,0 +1,22 @@
+package com.neuedu.mapper;
+
+import com.neuedu.po.Ordertable;
+
+public interface OrdertableMapper {
+    int deleteByPrimaryKey(Integer orderid);
+
+    int insert(Ordertable record);
+
+    int insertSelective(Ordertable record);
+
+    Ordertable selectByPrimaryKey(Integer orderid);
+
+    int updateByPrimaryKeySelective(Ordertable record);
+
+    int updateByPrimaryKey(Ordertable record);
+    
+    //×Ô¼ºÐ´µÄ
+    int selectOrderidByOrdernum(String ordernum);
+    
+    int updateOrderstatusByOrderid(Integer orderid);
+}

@@ -1,0 +1,36 @@
+package com.neuedu.controller;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neuedu.po.Address;
+import com.neuedu.service.PayService;
+
+@Controller
+@RequestMapping("/pay")
+public class PayController {
+
+	@Autowired
+	private PayService payService;
+	@RequestMapping({"/","/show"})
+	public String getList(Model model) {
+		int userid = 1;
+		List<Address> list = payService.getList(userid);
+		model.addAttribute("list", list);
+		return "/pay";
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(Integer addressid) {
+		payService.delete(addressid);
+		return "redirect:/pay/";
+	}
+	
+	
+	
+}

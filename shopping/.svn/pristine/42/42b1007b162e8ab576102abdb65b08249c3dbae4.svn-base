@@ -1,0 +1,18 @@
+package com.neuedu.service;
+
+import java.util.List;
+
+import org.apache.ibatis.type.IntegerTypeHandler;
+
+import com.neuedu.po.Orderdetail;
+import com.neuedu.vo.OrderdetailVO;
+
+public interface OrderService {
+	public List<OrderdetailVO> getDetails(Integer orderid);
+	
+	public int selectOrderidByOrdernum(String ordernum);
+	
+	public void insertSelective(Orderdetail orderdetail);
+	
+	public void updateOrderstatusByOrderid(Integer orderid);
+}

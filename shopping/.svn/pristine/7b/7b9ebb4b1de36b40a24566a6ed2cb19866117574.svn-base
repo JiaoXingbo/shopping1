@@ -1,0 +1,34 @@
+package com.neuedu.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neuedu.po.Address;
+import com.neuedu.service.AddressService;
+
+@Controller
+@RequestMapping("/address")
+public class AddressController {
+	
+	@Autowired
+	private AddressService addressService;
+
+	@RequestMapping({"/","/list"})
+	public String getList(Model model) {
+		int userid = 1;
+		List<Address> list = addressService.getListByUserid(userid);
+		
+		model.addAttribute("list", list);
+		return "/address";
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(Integer addressid) {
+		addressService.deleteByPrimaryKey(addressid);
+		return "redirect:/address/";
+	}
+}

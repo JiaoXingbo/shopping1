@@ -1,0 +1,28 @@
+package com.neuedu.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neuedu.mapper.AddressMapper;
+import com.neuedu.po.Address;
+import com.neuedu.service.PayService;
+@Service
+public class PayServiceImpl implements PayService{
+
+	@Autowired
+	private AddressMapper addressMapper;
+	@Override
+	public List<Address> getList(Integer userid) {
+		
+		List<Address> addrList = addressMapper.selectByUserid(userid);
+		return addrList;
+	}
+	
+	@Override
+	public void delete(Integer addressid) {
+		addressMapper.deleteByPrimaryKey(addressid);
+	}
+
+}

@@ -1,0 +1,10 @@
+package com.neuedu.service;
+
+import java.util.List;
+
+import com.neuedu.po.Orderdetail;
+import com.neuedu.vo.OrderdetailVO;
+
+public interface OrderService {
+	public List<OrderdetailVO> getDetails(Integer orderid);
+}

@@ -1,0 +1,59 @@
+package com.neuedu.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neuedu.po.Cart;
+import com.neuedu.service.AddressService;
+import com.neuedu.service.CartService;
+import com.neuedu.vo.CartVo;
+
+@Controller
+@RequestMapping("/cart")
+public class CartController {
+	
+	@Autowired
+	private CartService cartService;
+	
+	@RequestMapping({"/","/show"})
+	public String showLogin(Model model) {
+		int userid = 1;
+		List<CartVo> list = cartService.getList(userid);
+		model.addAttribute("list", list);
+		
+		return "/cart";
+	}
+	
+	@RequestMapping("/deleteone")
+	public String deleteone(Integer cartid) {
+		cartService.deleteone(cartid);
+		return "redirect:/cart/";
+	}
+	
+	@RequestMapping("/updatecount")
+	public String subcount(Integer goodsnum,Integer cartid) {
+		if(goodsnum <= 0) {
+			cartService.deleteone(cartid);
+			return "forward:/cart/";
+		}
+		
+		Cart record = new Cart();
+		record.setCartid(cartid);
+		record.setCount(goodsnum);
+		
+		cartService.updateByPrimaryKeySelective(record);
+		
+		System.out.println(goodsnum);
+		System.out.println(cartid);
+		
+		return "forward:/cart/";
+	}
+	
+	
+}
+ 

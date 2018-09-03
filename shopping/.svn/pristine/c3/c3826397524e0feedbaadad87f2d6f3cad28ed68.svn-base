@@ -1,0 +1,37 @@
+package com.neuedu.controller;
+
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neuedu.po.Address;
+import com.neuedu.service.AddressService;
+import com.neuedu.service.OrderService;
+
+@Controller
+@RequestMapping("/success")
+public class SuccessController {
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private AddressService addressService;
+	
+	@RequestMapping({"/","/list"})
+	public String getlist(Integer orderid,Integer addressid,Double totalprice,Model model,HttpServletRequest request) {
+
+		//修改订单状态
+		orderService.updateOrderstatusByOrderid(orderid);
+
+		//根据addressid 查询地址，保存到model
+		Address address = addressService.selectByPrimaryKey(addressid);
+		model.addAttribute("address", address);
+		//将totalprice保存到model中
+		model.addAttribute("totalprice", totalprice);
+
+		return "/success";
+	}
+}
